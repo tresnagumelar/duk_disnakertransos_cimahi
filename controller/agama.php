@@ -12,7 +12,7 @@ class Controller {
 		$start = isset($start) ? $start : 0;
 		$limit = isset($limit) ? $limit : 100;
 
-		$sql = "select * from TAgen";
+		$sql = "select * from r_agama";
 		//ambil row
 		$sql = $sql . " limit $start, $limit";
 		if ($result = $db->con->query($sql)) {
@@ -34,18 +34,11 @@ class Controller {
 		$response->success = false;
 		$response->msg = "";
 		
-		$id_agen = clean($id_agen);
-		if($id_agen!="") {
-			$sql = "update tagen set 
-				nama_agen='$nama_agen', 
-				no_telepon='$no_telepon',
-				alamat='$alamat'
-				where id_agen = '$id_agen'
-			";
-		}else {
-			$sql = "insert into tagen values (null,'$nama_agen','$no_telepon','$alamat')";
-		}
+		$kd_agama = clean($kd_agama);
+		$sql = "replace into r_agama values ('$kd_agama','$nama_agama')";
 		$response->success = $db->query($sql);
+		$response->test = $sql;
+		$response->test2 = $kd_agama;
 		header("Content-type : application/json");
 		echo json_encode($response);
 	}
@@ -56,8 +49,8 @@ class Controller {
 		$response = new stdClass();
 		$response->success = false;
 		$response->msg = "";
-		$id_agen = clean($id_agen);
-		$sql = "delete from tagen where id_agen='$id_agen'";
+		$kd_agama = clean($kd_agama);
+		$sql = "delete from r_agama where kd_agama='$kd_agama'";
 		$response->success = $db->query($sql);
 		header("Content-type : application/json");
 		echo json_encode($response);

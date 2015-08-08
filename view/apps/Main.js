@@ -152,6 +152,31 @@ Ext.define("App.Main",{
 					}
 				}]
 			},{
+				title:"Referensi",
+				collapsed:false,
+				items:[{
+					id:"action-refagama",
+					iconCls:"icon-monitor",
+					text:"Agama",
+					handler:function(){
+						App.Main.setContent("App.grid.Agama");
+					}
+					},{
+					id:"action-refpangkat",
+					iconCls:"icon-monitor",
+					text:"Pangkat",
+					handler:function(){
+						App.Main.setContent("App.grid.Pangkat");
+					}
+					},{
+					id:"action-refjabatan",
+					iconCls:"icon-monitor",
+					text:"Jabatan",
+					handler:function(){
+						App.Main.setContent("App.grid.Jabatan");
+					}
+				}]
+			},{
 				title:"Akun",
 				xtype:(App.isLogin)?"contentmenu":"form",
 				url : "controller/login/dologin",

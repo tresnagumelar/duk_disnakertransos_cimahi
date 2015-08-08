@@ -13,7 +13,7 @@ Ext.define("App.grid.Duk",{
 		var me=this;
 		me.store=Ext.create('Ext.data.AyodyaStore', {
 			autoLoad: true,
-			fields:['nip','nama','tempat_lahir','tanggal_lahir', 'jenis_kelamin', 'agama', 'pangkat_gol', 'pangkat_tmt', 'jabatan_nama', 'jabatan_tmt', 'masaKerja_thn', 'masaKerja_bln', 'masaKerjaKes_thn', 'masaKerjaKes_bln'],
+			fields:['nip','nama','tempat_lahir','tanggal_lahir', 'jenis_kelamin', 'agama', 'pangkat_gol', 'pangkat_tmt', 'jabatan_nama', 'jabatan_tmt', 'masa_kerja', 'masa_kerjakes'],
 			proxy: {
 				type: 'ajax',
 				sortParam:null,
@@ -48,14 +48,6 @@ Ext.define("App.grid.Duk",{
 				{header: 'Tanggal Lahir', dataIndex:'tanggal_lahir'},
 				{header: 'Jenis Kelamin', dataIndex:'jenis_kelamin'},
 				{header: 'Agama', dataIndex:'agama'},
-				{header: 'Pangkat Gol', dataIndex:'pangkat_gol'},
-				{header: 'Pangkat TMT', dataIndex:'pangkat_tmt'},
-				{header: 'Jabatan Nama', dataIndex:'jabatan_nama'},
-				{header: 'Jabatan TMT', dataIndex:'jabatan_tmt'},
-				{header: 'Masa Kerja Tahun', dataIndex:'masaKerja_thn'},
-				{header: 'Masa Kerja Bulan', dataIndex:'masaKerja_bln'},
-				{header: 'Masa Kerja Keseluruhan Tahun', dataIndex:'masaKerjaKes_thn'},
-				{header: 'Masa Kerja Keseluruhan Bulan', dataIndex:'masaKerjaKes_bln'},
 				{header: '',flex:1}
 			],
 			dockedItems:[{
@@ -173,19 +165,11 @@ Ext.define("App.grid.Duk",{
 					},{
 						fieldLabel : "Masa Kerja Tahun",
 						allowBlank : false,
-						name : "masaKerja_thn"
+						name : "masa_kerja"
 					},{
-						fieldLabel : "Masa Kerja Bulan",
+						fieldLabel : "Masa Kerja Keseluruhan",
 						allowBlank : false,
-						name : "masaKerja_bln"
-					},{
-						fieldLabel : "Masa Kerja Keseluruhan Tahun",
-						allowBlank : false,
-						name : "masaKerjaKes_thn"
-					},{
-						fieldLabel : "Masa Kerja Keseluruhan Bulan",
-						allowBlank : false,
-						name : "masaKerjaKes_bln"
+						name : "masa_kerjakes"
 					}]
 				}]
 			}]

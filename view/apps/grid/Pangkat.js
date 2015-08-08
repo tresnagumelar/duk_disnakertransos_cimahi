@@ -1,9 +1,9 @@
-Ext.define("App.grid.Skumptk",{
+Ext.define("App.grid.Pangkat",{
 	mainId:null,
 	winAddEdit:null,
 	firstLoad:true,
 	autoSet:true,
-	title:"Skumptk",
+	title:"Pangkat",
 	extend:"Ext.util.Observable",
 	constructor : function(c){
 		this.callParent([c]);
@@ -13,11 +13,11 @@ Ext.define("App.grid.Skumptk",{
 		var me=this;
 		me.store=Ext.create('Ext.data.AyodyaStore', {
 			autoLoad: true,
-			fields:['id_agen','nama_agen','no_telepon','alamat'],
+			fields:['kd_pangkat','nama_pangkat'],
 			proxy: {
 				type: 'ajax',
 				sortParam:null,
-				url : 'controller/skumptk/getall',
+				url : 'controller/pangkat/getall',
 				reader: {
 					type: 'json',
 					root: 'rows',
@@ -42,9 +42,8 @@ Ext.define("App.grid.Skumptk",{
 			store:me.store,
 			forceFit:true,
 			columns: [
-				{header: 'Nama',dataIndex:'nama_agen',width:200},
-				{header: 'No Telepon', dataIndex:'no_telepon'},
-				{header: 'Alamat', dataIndex:'alamat'},
+				{header: 'Kode',dataIndex:'kd_pangkat'},
+				{header: 'Pangkat Golongan', dataIndex:'nama_pangkat'},
 				{header: '',flex:1}
 			],
 			dockedItems:[{
@@ -101,7 +100,7 @@ Ext.define("App.grid.Skumptk",{
 	crtWinAddEdit : function(){
 		this.fmAddEdit = Ext.create("Ext.form.Panel", {
 			border: false,
-			url: "controller/skumptk/save",
+			url: "controller/pangkat/save",
 			layout: "fit",
 			defaults: {bodyStyle: "background-color : #DFE8F6"},
 			items: [{
@@ -120,20 +119,13 @@ Ext.define("App.grid.Skumptk",{
 						xtype : "textfield"
 					},
 					items : [{
-						xtype:'hidden',
-						name:'id_agen'
-					},{
-						fieldLabel : "Nama Agen",
+						fieldLabel : "Kode",
 						allowBlank : false,
-						name : "nama_agen"
+						name : "kd_pangkat"
 					},{
-						fieldLabel : "Nomer Telepon",
+						fieldLabel : "Pangkat Golongan",
 						allowBlank : false,
-						name : "no_telepon"
-					},{
-						fieldLabel : "Alamat",
-						allowBlank : false,
-						name : "alamat"
+						name : "nama_pangkat"
 					}]
 				}]
 			}]
@@ -177,14 +169,14 @@ Ext.define("App.grid.Skumptk",{
 		if (m.winAddEdit===null)m.crtWinAddEdit();
 		m.fmAddEdit.getForm().setValues(rec.data);
 		m.fmAddEdit.mode="edit";
-		m.winAddEdit.setTitle("Ubah Data Agen");
+		m.winAddEdit.setTitle("Ubah Data Pangkat");
 		m.winAddEdit.show();
 	},
 	onAdd : function(){
 		var m=this;
 		if (m.winAddEdit==null)m.crtWinAddEdit();
 		m.fmAddEdit.mode="add";
-		m.winAddEdit.setTitle("Tambah Data Agen");
+		m.winAddEdit.setTitle("Tambah Data Pangkat");
 		m.winAddEdit.show();
 	},
 	onSave : function(){
@@ -218,8 +210,8 @@ Ext.define("App.grid.Skumptk",{
 			Ext.Ajax.request({
 				scope:m,
 				method: "POST",
-				url : "controller/skumptk/delete",
-				params: {id_agen:rec.data.id_agen},
+				url : "controller/pangkat/delete",
+				params: {kd_pangkat:rec.data.kd_pangkat},
 				success:function(a){
 					a=Ext.decode(a.responseText);
 					if (!a.success)Ext.Msg.alert("Error",a.msg);
@@ -233,7 +225,7 @@ Ext.define("App.grid.Skumptk",{
 		rec = m.Main.getSelectionModel().getSelection()[0];
 		m.delAlert=Ext.Msg.show({
 			title:'Apakah anda yakin?',
-			msg: 'Anda akan menghapus data '+rec.data.nama_agen+' ?',
+			msg: 'Anda akan menghapus data '+rec.data.nama+' ?',
 			buttons: Ext.Msg.OKCANCEL,
 			scope : this,
 			fn: this.doDelete,

@@ -12,7 +12,7 @@ class Controller {
 		$start = isset($start) ? $start : 0;
 		$limit = isset($limit) ? $limit : 100;
 
-		$sql = "select * from TTravel";
+		$sql = "select * from r_jabatan";
 		//ambil row
 		$sql = $sql . " limit $start, $limit";
 		if ($result = $db->con->query($sql)) {
@@ -34,19 +34,11 @@ class Controller {
 		$response->success = false;
 		$response->msg = "";
 		
-		$id_travel = clean($id_travel);
-		if($id_travel!="") {
-			$sql = "update ttravel set 
-				nama_travel='$nama_travel', 
-				kota_asal='$kota_asal',
-				kota_tujuan='$kota_tujuan',
-				harga='$harga'
-				where id_travel = '$id_travel'
-			";
-		}else {
-			$sql = "insert into ttravel values (null,'$nama_travel','$kota_asal','$kota_tujuan','$harga')";
-		}
-			$response->success = $db->query($sql);
+		$kd_jabatan = clean($kd_jabatan);
+		$sql = "replace into r_jabatan values ('$kd_jabatan','$nama_jabatan')";
+		$response->success = $db->query($sql);
+		$response->test = $sql;
+		$response->test2 = $kd_jabatan;
 		header("Content-type : application/json");
 		echo json_encode($response);
 	}
@@ -57,8 +49,8 @@ class Controller {
 		$response = new stdClass();
 		$response->success = false;
 		$response->msg = "";
-		$id_travel = clean($id_travel);
-		$sql = "delete from ttravel where id_travel='$id_travel'";
+		$kd_jabatan = clean($kd_jabatan);
+		$sql = "delete from r_jabatan where kd_jabatan='$kd_jabatan'";
 		$response->success = $db->query($sql);
 		header("Content-type : application/json");
 		echo json_encode($response);

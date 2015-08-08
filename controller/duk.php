@@ -12,7 +12,7 @@ class Controller {
 		$start = isset($start) ? $start : 0;
 		$limit = isset($limit) ? $limit : 100;
 
-		$sql = "select * from identitas";
+		$sql = "select * from t_identitas";
 		//ambil row
 		$sql = $sql . " limit $start, $limit";
 		if ($result = $db->con->query($sql)) {
@@ -36,7 +36,7 @@ class Controller {
 		
 		$nip = clean($nip);
 		if($nip!="") {
-			$sql = "update identitas set 
+			$sql = "update t_identitas set 
 				nama='$nama', 
 				tempat_lahir='$tempat_lahir',
 				tanggal_lahir='$tanggal_lahir',
@@ -46,14 +46,12 @@ class Controller {
 				pangkat_tmt='$pangkat_tmt',
 				jabatan_nama='$jabatan_nama',
 				jabatan_tmt='$jabatan_tmt',
-				masaKerja_thn='$masaKerja_thn',
-				masaKerja_bln='$masaKerja_bln',
-				masaKerjaKes_thn='$masaKerjaKes_thn',
-				masaKerjaKes_bln='$masaKerjaKes_bln'
+				masa_kerja='$masa_kerja',
+				masa_kerjakes='$masa_kerjakes',
 				where nip = '$nip'
 			";
 		}else {
-			$sql = "insert into identitas values ('$nip','$nama','$tempat_lahir','$tanggal_lahir','$jenis_kelamin','$agama','$pangkat_gol','$pangkat_tmt','$jabatan_nama','$jabatan_tmt','$masaKerja_thn','$masaKerja_bln','$masaKerjaKes_thn','$masaKerjaKes_bln')";
+			$sql = "insert into t_identitas values ('$nip','$nama','$tempat_lahir','$tanggal_lahir','$jenis_kelamin','$agama','$pangkat_gol','$pangkat_tmt','$jabatan_nama','$jabatan_tmt','$masa_kerja','$masa_kerjakes')";
 		}
 		$response->success = $db->query($sql);
 		header("Content-type : application/json");
@@ -67,7 +65,7 @@ class Controller {
 		$response->success = false;
 		$response->msg = "";
 		$nip = clean($nip);
-		$sql = "delete from identitas where nip='$nip'";
+		$sql = "delete from t_identitas where nip='$nip'";
 		$response->success = $db->query($sql);
 		header("Content-type : application/json");
 		echo json_encode($response);

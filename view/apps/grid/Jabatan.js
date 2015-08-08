@@ -1,9 +1,9 @@
-Ext.define("App.grid.Travel",{
+Ext.define("App.grid.Jabatan",{
 	mainId:null,
 	winAddEdit:null,
 	firstLoad:true,
 	autoSet:true,
-	title:"Travel",
+	title:"Jabatan",
 	extend:"Ext.util.Observable",
 	constructor : function(c){
 		this.callParent([c]);
@@ -13,11 +13,11 @@ Ext.define("App.grid.Travel",{
 		var me=this;
 		me.store=Ext.create('Ext.data.AyodyaStore', {
 			autoLoad: true,
-			fields:['id_travel','nama_travel','kota_asal','kota_tujuan','harga'],
+			fields:['kd_jabatan','nama_jabatan'],
 			proxy: {
 				type: 'ajax',
 				sortParam:null,
-				url : 'controller/travel/getall',
+				url : 'controller/jabatan/getall',
 				reader: {
 					type: 'json',
 					root: 'rows',
@@ -42,10 +42,8 @@ Ext.define("App.grid.Travel",{
 			store:me.store,
 			forceFit:true,
 			columns: [
-				{header: 'Nama',dataIndex:'nama_travel'},
-				{header: 'Kota Asal', dataIndex:'kota_asal',width:150},
-				{header: 'Kota Tujuan', dataIndex:'kota_tujuan',width:150},
-				{header: 'Harga', dataIndex:'harga'},
+				{header: 'Kode',dataIndex:'kd_jabatan'},
+				{header: 'Nama Jabatan', dataIndex:'nama_jabatan'},
 				{header: '',flex:1}
 			],
 			dockedItems:[{
@@ -76,7 +74,8 @@ Ext.define("App.grid.Travel",{
 		});
 	},
 	createTopToolbar:function(){
-			if(!App.isLogin)return null;var tbar=[{
+		if(!App.isLogin)return null;
+		var tbar=[{
 			text : "Tambah",
 			scope : this,
 			iconCls : "icon-add",
@@ -101,7 +100,7 @@ Ext.define("App.grid.Travel",{
 	crtWinAddEdit : function(){
 		this.fmAddEdit = Ext.create("Ext.form.Panel", {
 			border: false,
-			url: "controller/travel/save",
+			url: "controller/jabatan/save",
 			layout: "fit",
 			defaults: {bodyStyle: "background-color : #DFE8F6"},
 			items: [{
@@ -120,24 +119,13 @@ Ext.define("App.grid.Travel",{
 						xtype : "textfield"
 					},
 					items : [{
-						xtype:'hidden',
-						name:'id_travel'
-					},{
-						fieldLabel : "Nama Travel",
+						fieldLabel : "Kode",
 						allowBlank : false,
-						name : "nama_travel"
+						name : "kd_jabatan"
 					},{
-						fieldLabel : "Kota Asal",
+						fieldLabel : "Nama Jabatan",
 						allowBlank : false,
-						name : "kota_asal"
-					},{
-						fieldLabel : "Kota Tujuan",
-						allowBlank : false,
-						name : "kota_tujuan"
-					},{
-						fieldLabel : "Harga",
-						allowBlank : false,
-						name : "harga"
+						name : "nama_jabatan"
 					}]
 				}]
 			}]
@@ -181,14 +169,14 @@ Ext.define("App.grid.Travel",{
 		if (m.winAddEdit===null)m.crtWinAddEdit();
 		m.fmAddEdit.getForm().setValues(rec.data);
 		m.fmAddEdit.mode="edit";
-		m.winAddEdit.setTitle("Ubah Data Travel");
+		m.winAddEdit.setTitle("Ubah Data Jabatan");
 		m.winAddEdit.show();
 	},
 	onAdd : function(){
 		var m=this;
 		if (m.winAddEdit==null)m.crtWinAddEdit();
 		m.fmAddEdit.mode="add";
-		m.winAddEdit.setTitle("Tambah Data Travel");
+		m.winAddEdit.setTitle("Tambah Data Jabatan");
 		m.winAddEdit.show();
 	},
 	onSave : function(){
@@ -222,8 +210,8 @@ Ext.define("App.grid.Travel",{
 			Ext.Ajax.request({
 				scope:m,
 				method: "POST",
-				url : "controller/travel/delete",
-				params: {id_travel:rec.data.id_travel},
+				url : "controller/jabatan/delete",
+				params: {kd_jabatan:rec.data.kd_jabatan},
 				success:function(a){
 					a=Ext.decode(a.responseText);
 					if (!a.success)Ext.Msg.alert("Error",a.msg);
@@ -237,7 +225,7 @@ Ext.define("App.grid.Travel",{
 		rec = m.Main.getSelectionModel().getSelection()[0];
 		m.delAlert=Ext.Msg.show({
 			title:'Apakah anda yakin?',
-			msg: 'Anda akan menghapus data '+rec.data.nama_travel+' ?',
+			msg: 'Anda akan menghapus data '+rec.data.nama+' ?',
 			buttons: Ext.Msg.OKCANCEL,
 			scope : this,
 			fn: this.doDelete,
