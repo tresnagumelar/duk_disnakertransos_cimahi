@@ -42,7 +42,7 @@ Ext.define("App.Main",{
 		App.window[app[2]].show();
 	},
 	doLogin : function(){
-		this.contentMenu.getComponent(1).getForm().submit({
+		this.contentMenu.getComponent('FormLogin').getForm().submit({
 			scope : this,
 			success : this.onSuccess,
 			failure : this.onFailure,
@@ -180,6 +180,7 @@ Ext.define("App.Main",{
 				title:"Akun",
 				xtype:(App.isLogin)?"contentmenu":"form",
 				url : "controller/login/dologin",
+				itemId:'FormLogin',
 				layout: 'anchor',
 				defaults:{
 					anchor:'100%',
