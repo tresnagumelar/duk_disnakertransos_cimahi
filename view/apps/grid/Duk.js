@@ -13,7 +13,8 @@ Ext.define("App.grid.Duk",{
 		var me=this;
 		me.store=Ext.create('Ext.data.AyodyaStore', {
 			autoLoad: true,
-			fields:['nip','nama','tempat_lahir','tanggal_lahir', 'jenis_kelamin', 'agama', 'pangkat_gol', 'pangkat_tmt', 'jabatan_nama', 'jabatan_tmt', 'masa_kerja', 'masa_kerjakes'],
+			fields:['foto', 'nip','nama','tempat_lahir','tanggal_lahir', 'jenis_kelamin', 'agama', 'pangkat_gol', 'pangkat_tmt',
+			 'jabatan_tmt', 'jabatan_nama', 'masa_kerja', 'masa_kerjaKes'],
 			proxy: {
 				type: 'ajax',
 				sortParam:null,
@@ -47,7 +48,7 @@ Ext.define("App.grid.Duk",{
 				{header: 'Tempat Lahir', dataIndex:'tempat_lahir'},
 				{header: 'Tanggal Lahir', dataIndex:'tanggal_lahir'},
 				{header: 'Jenis Kelamin', dataIndex:'jenis_kelamin'},
-				{header: 'Agama', dataIndex:'agama'},
+				//{header: 'Agama', dataIndex:'agama'},
 				{header: '',flex:1}
 			],
 			dockedItems:[{
@@ -111,7 +112,7 @@ Ext.define("App.grid.Duk",{
 				xtype : "tabpanel",
 				defaults: {bodyStyle: "background-color : #DFE8F6"},					
 				items: [{
-					title: 'Data',
+					title: 'Identitas',
 					padding: 5,
 					border: false,
 					defaults: {
@@ -120,56 +121,54 @@ Ext.define("App.grid.Duk",{
 						labelSeparator:"",
 						msgTarget : "side",
 						width : 300,
-						xtype : "textfield"
+						//xtype : "textfield"
 					},
 					items : [{
 						fieldLabel : "NIP",
 						allowBlank : false,
+						xtype : "textfield",
 						name : "nip"
 					},{
 						fieldLabel : "Nama",
 						allowBlank : false,
+						xtype : "textfield",
 						name : "nama"
 					},{
 						fieldLabel : "Tempat Lahir",
 						allowBlank : false,
+						xtype : "textfield",
 						name : "tempat_lahir"
 					},{
 						fieldLabel : "Tanggal Lahir",
 						allowBlank : false,
+						xtype : "datefield",
+						format: "y-m-d",
 						name : "tanggal_lahir"
 					},{
 						fieldLabel : "Jenis Kelamin",
 						allowBlank : false,
-						name : "jenis_kelamin"
+						xtype : "fieldcontainer",
+						name : "jenis_kelamin",
+						defaultType: "radiofield",
+						defaults: {
+							flex: 1
+						},
+						layout: "hbox",
+						items:[{
+							boxLabel: "Laki-laki",
+							name: "jenis_kelamin",
+							inputValue: "1",
+							id: "1"
+						},{
+							boxLabel: "Perempuan",
+							name: "jenis_kelamin",
+							inputValue: "2",
+							id: "2"
+						}]
 					},{
 						fieldLabel : "Agama",
 						allowBlank : false,
 						name : "agama"
-					},{
-						fieldLabel : "Pangkat Golongan",
-						allowBlank : false,
-						name : "pangkat_gol"
-					},{
-						fieldLabel : "Pangkat TMT",
-						allowBlank : false,
-						name : "pangkat_tmt"
-					},{
-						fieldLabel : "Jabatan Nama",
-						allowBlank : false,
-						name : "jabatan_nama"
-					},{
-						fieldLabel : "Jabatan TMT",
-						allowBlank : false,
-						name : "jabatan_tmt"
-					},{
-						fieldLabel : "Masa Kerja Tahun",
-						allowBlank : false,
-						name : "masa_kerja"
-					},{
-						fieldLabel : "Masa Kerja Keseluruhan",
-						allowBlank : false,
-						name : "masa_kerjakes"
 					}]
 				}]
 			}]

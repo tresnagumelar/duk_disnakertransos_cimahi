@@ -37,21 +37,16 @@ class Controller {
 		$nip = clean($nip);
 		if($nip!="") {
 			$sql = "update t_identitas set 
+				nip='$nip',
 				nama='$nama', 
 				tempat_lahir='$tempat_lahir',
 				tanggal_lahir='$tanggal_lahir',
-				jenis_kelamin='$jenis_kelamin',
-				agama='$agama',
-				pangkat_gol='$pangkat_gol',
-				pangkat_tmt='$pangkat_tmt',
-				jabatan_nama='$jabatan_nama',
-				jabatan_tmt='$jabatan_tmt',
-				masa_kerja='$masa_kerja',
-				masa_kerjakes='$masa_kerjakes',
+				jenis_kelamin='$jenis_kelamin' 
 				where nip = '$nip'
 			";
 		}else {
-			$sql = "insert into t_identitas values ('$nip','$nama','$tempat_lahir','$tanggal_lahir','$jenis_kelamin','$agama','$pangkat_gol','$pangkat_tmt','$jabatan_nama','$jabatan_tmt','$masa_kerja','$masa_kerjakes')";
+			$sql = "insert into t_identitas values (null, '$nip','$nama', '$jenis_kelamin','$tempat_lahir',
+				'$tanggal_lahir', null, null, null, null, null, null, null)";
 		}
 		$response->success = $db->query($sql);
 		header("Content-type : application/json");
